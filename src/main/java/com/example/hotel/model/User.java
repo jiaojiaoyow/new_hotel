@@ -19,6 +19,8 @@ public class User {
 
     private Integer status;
 
+    private String vip;
+
     public String getUid() {
         return uid;
     }
@@ -89,5 +91,13 @@ public class User {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getVip() {
+        return vip;
+    }
+
+    public void setVip(String vip) {
+        this.vip = vip == null ? null : vip.trim();
     }
 }

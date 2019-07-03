@@ -42,30 +42,29 @@ public class CommentController {
             return resultDTO.unkonwFail(e.toString());
         }
     }
-/*
+
     @RequestMapping("/api/writeComment")
-    public ResultDTO writeComment(int orderid,String comment){
+    public ResultDTO writeComment(String orderid,String comment){
         Date nowtime=new Date();
         ResultDTO resultDTO=new ResultDTO();
         try{
-        RoomOrder roomOrder=roomOrderService.selectByOrderid(orderid);
-        if(roomOrder.getCid()==null){
-        return resultDTO.fail();
-        }
+            RoomOrder roomOrder=roomOrderService.selectByOrderid(orderid);
+            if(roomOrder.getCid()==null){
+                return resultDTO.fail();
+            }
         //订单已使用并且还没有写评论的时候
         if(roomOrder.getOrderstatus()==4&&DateUtil.change_Date(roomOrder.getLeavetime()).getTime()<nowtime.getTime()&&roomOrder.getComment()==null){
-        roomOrder.setComment(comment);
-        int flag=roomOrderService.updateByPrimaryKeySelective(roomOrder);
-        if(flag==0){
-        return resultDTO.fail("更新失败");
+            roomOrder.setComment(comment);
+            int flag=roomOrderService.updateByPrimaryKeySelective(roomOrder);
+            if(flag==0){
+                return resultDTO.fail("新建评论失败");
+            }
+            return resultDTO.ok(null);
         }
-        return resultDTO.ok(null);
-        }
-        return resultDTO.fail("已评论过或者还不可以评论");
+            return resultDTO.fail("已评论过或者还不可以评论");
 
         }catch(Exception e){
         return resultDTO.unkonwFail(e.toString());
         }
-        }
-        */
+    }
 }

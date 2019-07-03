@@ -1,7 +1,7 @@
 package com.example.hotel.model;
 
 public class VipCard {
-    private Integer vid;
+    private String vid;
 
     private String phone;
 
@@ -9,12 +9,12 @@ public class VipCard {
 
     private String username;
 
-    public Integer getVid() {
+    public String getVid() {
         return vid;
     }
 
-    public void setVid(Integer vid) {
-        this.vid = vid;
+    public void setVid(String vid) {
+        this.vid = vid == null ? null : vid.trim();
     }
 
     public String getPhone() {

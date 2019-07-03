@@ -114,52 +114,62 @@ public class VipCardExample {
             return (Criteria) this;
         }
 
-        public Criteria andVidEqualTo(Integer value) {
+        public Criteria andVidEqualTo(String value) {
             addCriterion("vid =", value, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidNotEqualTo(Integer value) {
+        public Criteria andVidNotEqualTo(String value) {
             addCriterion("vid <>", value, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidGreaterThan(Integer value) {
+        public Criteria andVidGreaterThan(String value) {
             addCriterion("vid >", value, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andVidGreaterThanOrEqualTo(String value) {
             addCriterion("vid >=", value, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidLessThan(Integer value) {
+        public Criteria andVidLessThan(String value) {
             addCriterion("vid <", value, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidLessThanOrEqualTo(Integer value) {
+        public Criteria andVidLessThanOrEqualTo(String value) {
             addCriterion("vid <=", value, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidIn(List<Integer> values) {
+        public Criteria andVidLike(String value) {
+            addCriterion("vid like", value, "vid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVidNotLike(String value) {
+            addCriterion("vid not like", value, "vid");
+            return (Criteria) this;
+        }
+
+        public Criteria andVidIn(List<String> values) {
             addCriterion("vid in", values, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidNotIn(List<Integer> values) {
+        public Criteria andVidNotIn(List<String> values) {
             addCriterion("vid not in", values, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidBetween(Integer value1, Integer value2) {
+        public Criteria andVidBetween(String value1, String value2) {
             addCriterion("vid between", value1, value2, "vid");
             return (Criteria) this;
         }
 
-        public Criteria andVidNotBetween(Integer value1, Integer value2) {
+        public Criteria andVidNotBetween(String value1, String value2) {
             addCriterion("vid not between", value1, value2, "vid");
             return (Criteria) this;
         }

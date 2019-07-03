@@ -3,8 +3,6 @@ package com.example.hotel.model;
 public class Essay {
     private Integer aid;
 
-    private String uid;
-
     private String title;
 
     private String createTime;
@@ -19,14 +17,6 @@ public class Essay {
 
     public void setAid(Integer aid) {
         this.aid = aid;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid == null ? null : uid.trim();
     }
 
     public String getTitle() {

@@ -49,7 +49,7 @@ public class ResultDTO {
     public static ResultDTO fail() {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setStatus(201);
-        resultDTO.setMessage("请求成功，但是没有数据");
+        resultDTO.setMessage("没有相应的数据");
         return resultDTO;
     }
 
@@ -63,7 +63,7 @@ public class ResultDTO {
     public static ResultDTO fail(String message) {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setStatus(204);
-        resultDTO.setMessage("请求失败，数据库操作失误"+message);
+        resultDTO.setMessage("请求失败,"+message);
         return resultDTO;
     }
 

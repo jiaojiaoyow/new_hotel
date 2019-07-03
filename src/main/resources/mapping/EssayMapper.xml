@@ -3,7 +3,6 @@
 <mapper namespace="com.example.hotel.dao.EssayMapper">
   <resultMap id="BaseResultMap" type="com.example.hotel.model.Essay">
     <id column="aid" jdbcType="INTEGER" property="aid" />
-    <result column="uid" jdbcType="CHAR" property="uid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="imageurl" jdbcType="VARCHAR" property="imageurl" />
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    aid, uid, title, create_time, imageurl
+    aid, title, create_time, imageurl
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -124,21 +123,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.hotel.model.Essay">
-    insert into essay (aid, uid, title, 
-      create_time, imageurl, content
-      )
-    values (#{aid,jdbcType=INTEGER}, #{uid,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{imageurl,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
-      )
+    insert into essay (aid, title, create_time, 
+      imageurl, content)
+    values (#{aid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{imageurl,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.hotel.model.Essay">
     insert into essay
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="aid != null">
         aid,
-      </if>
-      <if test="uid != null">
-        uid,
       </if>
       <if test="title != null">
         title,
@@ -156,9 +150,6 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="aid != null">
         #{aid,jdbcType=INTEGER},
-      </if>
-      <if test="uid != null">
-        #{uid,jdbcType=CHAR},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -186,9 +177,6 @@
       <if test="record.aid != null">
         aid = #{record.aid,jdbcType=INTEGER},
       </if>
-      <if test="record.uid != null">
-        uid = #{record.uid,jdbcType=CHAR},
-      </if>
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
@@ -209,7 +197,6 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update essay
     set aid = #{record.aid,jdbcType=INTEGER},
-      uid = #{record.uid,jdbcType=CHAR},
       title = #{record.title,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=VARCHAR},
       imageurl = #{record.imageurl,jdbcType=VARCHAR},
@@ -221,7 +208,6 @@
   <update id="updateByExample" parameterType="map">
     update essay
     set aid = #{record.aid,jdbcType=INTEGER},
-      uid = #{record.uid,jdbcType=CHAR},
       title = #{record.title,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=VARCHAR},
       imageurl = #{record.imageurl,jdbcType=VARCHAR}
@@ -232,9 +218,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.example.hotel.model.Essay">
     update essay
     <set>
-      <if test="uid != null">
-        uid = #{uid,jdbcType=CHAR},
-      </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
@@ -252,8 +235,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.hotel.model.Essay">
     update essay
-    set uid = #{uid,jdbcType=CHAR},
-      title = #{title,jdbcType=VARCHAR},
+    set title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=VARCHAR},
       imageurl = #{imageurl,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
@@ -261,8 +243,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.hotel.model.Essay">
     update essay
-    set uid = #{uid,jdbcType=CHAR},
-      title = #{title,jdbcType=VARCHAR},
+    set title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=VARCHAR},
       imageurl = #{imageurl,jdbcType=VARCHAR}
     where aid = #{aid,jdbcType=INTEGER}
@@ -298,6 +279,7 @@
     </if>
   </select>
 
+
   <!--自己添加的-->
   <select id="selectAll" resultType="com.example.hotel.model.Essay">
   select * from essay
@@ -310,6 +292,4 @@
   <select id="selectPage" resultType="com.example.hotel.model.Essay" parameterType="java.util.Map">
   select * from essay limit #{begin},#{num}
 </select>
-
-
 </mapper>

@@ -673,6 +673,76 @@ public class UserExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andVipIsNull() {
+            addCriterion("vip is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipIsNotNull() {
+            addCriterion("vip is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipEqualTo(String value) {
+            addCriterion("vip =", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipNotEqualTo(String value) {
+            addCriterion("vip <>", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipGreaterThan(String value) {
+            addCriterion("vip >", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipGreaterThanOrEqualTo(String value) {
+            addCriterion("vip >=", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipLessThan(String value) {
+            addCriterion("vip <", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipLessThanOrEqualTo(String value) {
+            addCriterion("vip <=", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipLike(String value) {
+            addCriterion("vip like", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipNotLike(String value) {
+            addCriterion("vip not like", value, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipIn(List<String> values) {
+            addCriterion("vip in", values, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipNotIn(List<String> values) {
+            addCriterion("vip not in", values, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipBetween(String value1, String value2) {
+            addCriterion("vip between", value1, value2, "vip");
+            return (Criteria) this;
+        }
+
+        public Criteria andVipNotBetween(String value1, String value2) {
+            addCriterion("vip not between", value1, value2, "vip");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

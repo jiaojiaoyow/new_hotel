@@ -72,7 +72,7 @@ public class Asseycontroller {
             essay.setCreateTime(DateUtil.change_str(nowtime));
             int flag=essayService.insertSelective(essay);
             if(flag==0){
-                return resultDTO.fail("数据库插入失败");
+                return resultDTO.fail("新建文章失败");
             }
             return resultDTO.ok(null);
         }catch (org.springframework.dao.DuplicateKeyException e){
@@ -91,7 +91,7 @@ public class Asseycontroller {
             }
             int flag=essayService.updateByPrimaryKeySelective(essay);
             if(flag==0){
-                return resultDTO.fail("数据库更新失败");
+                return resultDTO.fail("文章更改失败");
             }
             return resultDTO.ok(null);
         }catch (Exception e){

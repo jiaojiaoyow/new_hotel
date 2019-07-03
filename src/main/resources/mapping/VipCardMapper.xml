@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hotel.dao.VipCardMapper">
   <resultMap id="BaseResultMap" type="com.example.hotel.model.VipCard">
-    <id column="vid" jdbcType="INTEGER" property="vid" />
+    <id column="vid" jdbcType="VARCHAR" property="vid" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="gender" jdbcType="VARCHAR" property="gender" />
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -82,15 +82,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from vipcard
-    where vid = #{vid,jdbcType=INTEGER}
+    where vid = #{vid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from vipcard
-    where vid = #{vid,jdbcType=INTEGER}
+    where vid = #{vid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.example.hotel.model.VipCardExample">
     delete from vipcard
@@ -101,7 +101,7 @@
   <insert id="insert" parameterType="com.example.hotel.model.VipCard">
     insert into vipcard (vid, phone, gender, 
       username)
-    values (#{vid,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+    values (#{vid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
       #{username,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.hotel.model.VipCard">
@@ -122,7 +122,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="vid != null">
-        #{vid,jdbcType=INTEGER},
+        #{vid,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -145,7 +145,7 @@
     update vipcard
     <set>
       <if test="record.vid != null">
-        vid = #{record.vid,jdbcType=INTEGER},
+        vid = #{record.vid,jdbcType=VARCHAR},
       </if>
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update vipcard
-    set vid = #{record.vid,jdbcType=INTEGER},
+    set vid = #{record.vid,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       gender = #{record.gender,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR}
@@ -184,14 +184,14 @@
         username = #{username,jdbcType=VARCHAR},
       </if>
     </set>
-    where vid = #{vid,jdbcType=INTEGER}
+    where vid = #{vid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.hotel.model.VipCard">
     update vipcard
     set phone = #{phone,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR}
-    where vid = #{vid,jdbcType=INTEGER}
+    where vid = #{vid,jdbcType=VARCHAR}
   </update>
   <select id="selectByExampleWithRowbounds" parameterType="com.example.hotel.model.VipCardExample" resultMap="BaseResultMap">
     select

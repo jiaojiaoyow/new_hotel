@@ -19,12 +19,10 @@ public class Mycontroller {
     @RequestMapping("/api/getorder")
     public List<RoomOrder> getOrder(@RequestBody String openid){
 
-
         List<RoomOrder> roomOrder=new ArrayList<RoomOrder>();
         roomOrder=roomOrderService.selectByUserid(openid); //返回的是已经成功的订单
         System.out.println("返回所有已支付订单成功。");
 
         return roomOrder;
     }
-
 }

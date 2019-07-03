@@ -41,7 +41,8 @@ public interface EssayMapper {
 
     int updateByPrimaryKey(Essay record);
 
-    //    自己写的
+
+//    自己写的
 
     List<Essay> selectAll();
 

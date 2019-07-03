@@ -37,7 +37,7 @@ public class CompanyController {
             }
             int flag=companyService.saveOrUpdate(company);
             if(flag==0){
-                return resultDTO.fail("插入失败");
+                return resultDTO.fail("公司信息编写失败");
             }
             return resultDTO.ok(null);
         }catch (Exception e){

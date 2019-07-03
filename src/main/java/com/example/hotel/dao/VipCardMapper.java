@@ -11,7 +11,7 @@ public interface VipCardMapper {
 
     int deleteByExample(VipCardExample example);
 
-    int deleteByPrimaryKey(Integer vid);
+    int deleteByPrimaryKey(String vid);
 
     int insert(VipCard record);
 
@@ -21,7 +21,7 @@ public interface VipCardMapper {
 
     List<VipCard> selectByExample(VipCardExample example);
 
-    VipCard selectByPrimaryKey(Integer vid);
+    VipCard selectByPrimaryKey(String vid);
 
     int updateByExampleSelective(@Param("record") VipCard record, @Param("example") VipCardExample example);
 

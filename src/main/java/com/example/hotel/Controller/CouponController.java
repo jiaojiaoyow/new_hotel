@@ -90,7 +90,7 @@ public class CouponController {
             getCoupon.setUseEndDate(DateUtil.addtime(nowtime,5));//有五天的时间
             int flag=getCouponService.insertSelective(getCoupon);
             if(flag==0){
-                return resultDTO.fail("数据库插入失败");
+                return resultDTO.fail("领取优惠卷失败");
             }
             return resultDTO.ok(null);
 
@@ -104,22 +104,17 @@ public class CouponController {
 
     //新建优惠卷 get方式
     @RequestMapping("/api/back/putCoupon")
-    public ResultDTO putCoupon(@RequestBody CouponDTO couponDTO){
+    public ResultDTO putCoupon( Coupon coupon){
         ResultDTO resultDTO=new ResultDTO();
         try {
-            Date nowtime=new Date();
-            Coupon coupon=new Coupon();
-            coupon.setAmount(couponDTO.getAmount());
-            coupon.setCname(couponDTO.getCname());
-            coupon.setMinAmount(couponDTO.getMinAmount());
-            coupon.setSendStartDate(DateUtil.change_str(nowtime));
-            coupon.setSendEndDate(DateUtil.addtime(nowtime,couponDTO.getDate()));
+            if(coupon.getCname()==null){
+                return resultDTO.nothing();
+            }
             int flag=couponService.insertSelective(coupon);
             if(flag==0){
-                return resultDTO.fail("数据库插入失败");
+                return resultDTO.fail("新建优惠卷失败");
             }
             return resultDTO.ok(null);
-
         }catch (org.springframework.dao.DuplicateKeyException e){
             return resultDTO.interFail("优惠卷");
         }catch (Exception e){
@@ -137,7 +132,7 @@ public class CouponController {
             }
             int flag=couponService.updateByPrimaryKeySelective(coupon);
             if(flag==0){
-                return resultDTO.fail("数据库更新失败");
+                return resultDTO.fail("修改优惠卷失败");
             }
             return resultDTO.ok(null);
 

@@ -50,7 +50,7 @@ public class AdminLoginController {
             BeanUtils.copyProperties(admin,admin1);
             int flag=adminService.saveOrUpdate(admin1);
             if(flag==0){
-                return resultDTO.fail("数据库插入或者更新失败");
+                return resultDTO.fail("新建或更改管理员失败");
             }
             return resultDTO.ok(null);
         }catch (org.springframework.dao.DuplicateKeyException e){

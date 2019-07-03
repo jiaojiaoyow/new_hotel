@@ -11,6 +11,7 @@
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="vip" jdbcType="VARCHAR" property="vip" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, ubalance, ugrade, nickName, avatarUrl, gender, gmt_create, gmt_modified, status
+    uid, ubalance, ugrade, nickName, avatarUrl, gender, gmt_create, gmt_modified, status, 
+    vip
   </sql>
   <select id="selectByExample" parameterType="com.example.hotel.model.UserExample" resultMap="BaseResultMap">
     select
@@ -106,12 +108,12 @@
   <insert id="insert" parameterType="com.example.hotel.model.User">
     insert into user (uid, ubalance, ugrade, 
       nickName, avatarUrl, gender, 
-      gmt_create, gmt_modified, status
-      )
+      gmt_create, gmt_modified, status, 
+      vip)
     values (#{uid,jdbcType=CHAR}, #{ubalance,jdbcType=DOUBLE}, #{ugrade,jdbcType=INTEGER}, 
       #{nickname,jdbcType=VARCHAR}, #{avatarurl,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, 
-      #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}
-      )
+      #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, 
+      #{vip,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.hotel.model.User">
     insert into user
@@ -143,6 +145,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="vip != null">
+        vip,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -171,6 +176,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="vip != null">
+        #{vip,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -210,6 +218,9 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.vip != null">
+        vip = #{record.vip,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -225,7 +236,8 @@
       gender = #{record.gender,jdbcType=TINYINT},
       gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      vip = #{record.vip,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -257,6 +269,9 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="vip != null">
+        vip = #{vip,jdbcType=VARCHAR},
+      </if>
     </set>
     where uid = #{uid,jdbcType=CHAR}
   </update>
@@ -269,7 +284,8 @@
       gender = #{gender,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      vip = #{vip,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=CHAR}
   </update>
   <select id="selectByExampleWithRowbounds" parameterType="com.example.hotel.model.UserExample" resultMap="BaseResultMap">
@@ -286,7 +302,6 @@
       order by ${orderByClause}
     </if>
   </select>
-
   <!--更新余额，减操作-->
   <update id="updateByPrimaryKeyForBalance" parameterType="map">
     update user
