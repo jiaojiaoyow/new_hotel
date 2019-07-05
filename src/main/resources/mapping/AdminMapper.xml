@@ -202,4 +202,18 @@
   </select>
 
 
+  <select id="selectCount" resultType="java.lang.Integer">
+  select count(*) from admin
+</select>
+
+  <select id="selectPage" resultType="com.example.hotel.model.Admin" parameterType="java.util.Map">
+  select * from admin limit #{begin},#{num}
+</select>
+
+  <select id="selectByUnameLike" resultType="com.example.hotel.model.Admin" parameterType="java.lang.String">
+    select * from admin where uname LIKE  "%"#{uname}"%"
+  </select>
+
+
+
 </mapper>

@@ -1,9 +1,11 @@
 package com.example.hotel.Controller;
 
 import com.example.hotel.DTO.AdminDTO;
+import com.example.hotel.DTO.ObjectDTO;
 import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.model.Admin;
 import com.example.hotel.service.AdminService;
+import com.example.hotel.util.PageUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AdminLoginController {
@@ -40,15 +44,39 @@ public class AdminLoginController {
     }
 
     @RequestMapping("/api/back/selAdmin")
-    public ResultDTO selAdmin(){
+    public ResultDTO selAdmin(int currPage,int pageSize){
         ResultDTO resultDTO=new ResultDTO();
         try {
-
-            List<Admin> admin1=adminService.selectAll();
+            int total=adminService.selectCount();
+            //创建当前页的分页对象，计算四个参数
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize, total);
+            /*-------------------向数据库中查询当前页的数据-------------------*/
+            Map<String, Integer> parameter = new HashMap<>(2);
+            parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
+            parameter.put("num", peoplePageBean.getPageSize());
+            List<Admin> admin1=adminService.selectPage(parameter);
             if(admin1.size()==0){
                 return resultDTO.fail();
             }
-            return resultDTO.ok(admin1);
+            ObjectDTO object=new ObjectDTO(total,admin1);
+            return resultDTO.ok(object);
+        }catch (Exception e){
+            return resultDTO.unkonwFail(e.toString());
+        }
+    }
+
+    //查找优惠卷
+    @RequestMapping("/api/back/findAdmin")
+    public ResultDTO findCoupon(String uname){
+        ResultDTO resultDTO=new ResultDTO();
+        try {
+            List<Admin> mess=adminService.selectByUnameLike(uname);
+            //如果结束时间大于系统给的时间，这在数据库中删除数据，并且不返回。
+            if(mess.size()==0){
+                return resultDTO.fail();
+            }
+            return resultDTO.ok(mess);
+
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
         }

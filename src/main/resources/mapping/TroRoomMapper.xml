@@ -73,6 +73,10 @@
     roomintroduce, roomimage, roomarea, roomwifi, roombed, roombreakfast, roomnum, roomprice
   </sql>
 
+  <select id="selectRoomPage" resultType="com.example.hotel.model.TroRoom" parameterType="java.util.Map">
+  select * from troroom limit #{begin},#{num}
+</select>
+
   <select id="selectAllTroRoom"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

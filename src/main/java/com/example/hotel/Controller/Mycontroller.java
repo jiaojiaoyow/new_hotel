@@ -17,7 +17,7 @@ public class Mycontroller {
     private RoomOrderService roomOrderService;
 
     @RequestMapping("/api/getorder")
-    public List<RoomOrder> getOrder(@RequestBody String openid){
+    public List<RoomOrder> getOrder( String openid){
 
         List<RoomOrder> roomOrder=new ArrayList<RoomOrder>();
         roomOrder=roomOrderService.selectByUserid(openid); //返回的是已经成功的订单

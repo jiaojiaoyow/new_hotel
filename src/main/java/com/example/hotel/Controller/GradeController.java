@@ -1,5 +1,6 @@
 package com.example.hotel.Controller;
 
+import com.example.hotel.DTO.ObjectDTO;
 import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.model.Goods;
 import com.example.hotel.model.GoodsOrder;
@@ -64,8 +65,9 @@ public class GradeController {
     public ResultDTO selGoodsOrder(int currPage,int pageSize){
         ResultDTO resultDTO=new ResultDTO();
         try {
+            int total=goodsOrderService.selectCount();
             //创建当前页的分页对象，计算四个参数
-            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,goodsOrderService.selectCount());
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
             /*-------------------向数据库中查询当前页的数据-------------------*/
             Map<String, Integer> parameter = new HashMap<>(2);
             parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
@@ -74,7 +76,8 @@ public class GradeController {
             if(goodsOrders.size()==0){
                 return resultDTO.fail();
             }
-            return resultDTO.ok(goodsOrders);
+            ObjectDTO object=new ObjectDTO(total,goodsOrders);
+            return resultDTO.ok(object);
 
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
@@ -85,8 +88,9 @@ public class GradeController {
     public ResultDTO selUserGoodsOrder(int currPage,int pageSize,String uid){
         ResultDTO resultDTO=new ResultDTO();
         try {
+            int total=goodsOrderService.selectCount();
             //创建当前页的分页对象，计算四个参数
-            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,goodsOrderService.selectCount());
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
             /*-------------------向数据库中查询当前页的数据-------------------*/
             Map<String, Integer> parameter = new HashMap<>(2);
             Integer begin= peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize();
@@ -95,7 +99,8 @@ public class GradeController {
             if(goodsOrders.size()==0){
                 return resultDTO.fail();
             }
-            return resultDTO.ok(goodsOrders);
+            ObjectDTO object=new ObjectDTO(total,goodsOrders);
+            return resultDTO.ok(object);
 
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
@@ -150,8 +155,9 @@ public class GradeController {
     public ResultDTO selGoods(int currPage,int pageSize){
         ResultDTO resultDTO=new ResultDTO();
         try {
+            int total= goodsService.selectCount();
             //创建当前页的分页对象，计算四个参数
-            PageUtil peoplePageBean = new PageUtil(currPage, pageSize, goodsService.selectCount());
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
             /*-------------------向数据库中查询当前页的数据-------------------*/
             Map<String, Integer> parameter = new HashMap<>(2);
             parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
@@ -160,7 +166,8 @@ public class GradeController {
             if(goods.size()==0){
                 return resultDTO.fail();
             }
-            return resultDTO.ok(goods);
+            ObjectDTO object=new ObjectDTO(total,goods);
+            return resultDTO.ok(object);
 
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());

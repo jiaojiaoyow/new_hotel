@@ -1,6 +1,7 @@
 package com.example.hotel.Controller;
 
 import com.example.hotel.DTO.CouponDTO;
+import com.example.hotel.DTO.ObjectDTO;
 import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.DTO.TokenDTO;
 import com.example.hotel.model.Coupon;
@@ -9,16 +10,14 @@ import com.example.hotel.service.CouponService;
 import com.example.hotel.service.GetCouponService;
 import com.example.hotel.adapter.CouponUtil;
 import com.example.hotel.util.DateUtil;
+import com.example.hotel.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class CouponController {
@@ -33,17 +32,25 @@ public class CouponController {
 
     //获取所有的优惠卷，供主界面展示用
     @RequestMapping("/api/selCoupon")
-    public ResultDTO Sel_message() throws ParseException {
+    public ResultDTO Sel_message(int currPage,int pageSize) throws ParseException {
 
         ResultDTO resultDTO=new ResultDTO();
         try {
-            List<Coupon> mess=couponService.SelectAll();
+            int total=couponService.selectCount();
+            //创建当前页的分页对象，计算四个参数
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
+            /*-------------------向数据库中查询当前页的数据-------------------*/
+            Map<String, Integer> parameter = new HashMap<>(2);
+            parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
+            parameter.put("num", peoplePageBean.getPageSize());
+            List<Coupon> mess=couponService.selectPage(parameter);
             //如果结束时间大于系统给的时间，这在数据库中删除数据，并且不返回。
             couponUtil.FilterTime(mess);
             if(mess.size()==0){
                 return resultDTO.fail();
             }
-            return resultDTO.ok(mess);
+            ObjectDTO object=new ObjectDTO(total,mess);
+            return resultDTO.ok(object);
 
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoomService {
 
@@ -38,5 +39,7 @@ public interface RoomService {
     int updateByPrimaryKeyForReduce(@Param("rname") String rname,@Param("roomnum") int roomnum);
 
     int selectCount();
+
+
 
 }

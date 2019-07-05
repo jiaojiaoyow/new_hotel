@@ -66,7 +66,7 @@ public class CreateOrderController {
 
     //创建订单
     @RequestMapping("/api/createorder")
-    public cOrderDTO createOrder(@RequestBody RoomOrder roomOrder,HttpServletRequest request){
+    public cOrderDTO createOrder(RoomOrder roomOrder){
 
         try {
             System.out.println("roomname: " + roomOrder.getUname());
@@ -143,7 +143,7 @@ public class CreateOrderController {
 
     //判断支付是否成功
     @RequestMapping("/api/judgeorder")
-    public String JudgeOrder(@RequestBody cOrderDTO Dt){
+    public String JudgeOrder( cOrderDTO Dt){
 
 
 

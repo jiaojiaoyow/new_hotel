@@ -1,5 +1,6 @@
 package com.example.hotel.Controller;
 
+import com.example.hotel.DTO.ObjectDTO;
 import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.model.Essay;
 import com.example.hotel.model.RoomOrder;
@@ -22,8 +23,9 @@ public class CommentController {
     public ResultDTO selComment(int currPage,int pageSize){
         ResultDTO resultDTO=new ResultDTO();
         try {
+            int total= roomOrderService.selectCount();
             //创建当前页的分页对象，计算四个参数
-            PageUtil peoplePageBean = new PageUtil(currPage, pageSize, roomOrderService.selectCount());
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
             /*-------------------向数据库中查询当前页的数据-------------------*/
             Map<String, Integer> parameter = new HashMap<>(2);
             parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
@@ -37,7 +39,8 @@ public class CommentController {
             if(comments==null){
                 return resultDTO.fail();
             }
-            return resultDTO.ok(comments);
+            ObjectDTO object=new ObjectDTO(total,comments);
+            return resultDTO.ok(object);
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
         }

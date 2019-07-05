@@ -249,4 +249,12 @@
     select * from coupon where cname LIKE "%"#{cname}"%"
   </select>
 
+  <select id="selectCount" resultType="java.lang.Integer">
+  select count(*) from coupon
+</select>
+
+  <select id="selectPage" resultType="com.example.hotel.model.Coupon" parameterType="java.util.Map">
+  select * from coupon limit #{begin},#{num}
+</select>
+
 </mapper>

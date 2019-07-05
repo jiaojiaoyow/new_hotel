@@ -1,5 +1,6 @@
 package com.example.hotel.dao;
 
+import com.example.hotel.model.Room;
 import com.example.hotel.model.TroRoom;
 import com.example.hotel.model.TroRoomExample;
 
@@ -37,5 +38,6 @@ public interface TroRoomMapper {
     List<TroRoom> selectAllTroRoom();
 
     int selectCount();
+    List<TroRoom> selectRoomPage(Map map);
 
 }

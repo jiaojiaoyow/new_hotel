@@ -3,6 +3,8 @@ package com.example.hotel.dao;
 import com.example.hotel.model.Coupon;
 import com.example.hotel.model.CouponExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -35,5 +37,9 @@ public interface CouponMapper {
     List<Coupon> SelectAll();
 
     List<Coupon> selectByCname(String cname);
+
+    int selectCount();
+
+    List<Coupon> selectPage(Map map);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("TroRoomService")
 public class TroRoomServiceImpl implements TroRoomService {
@@ -26,10 +27,7 @@ public class TroRoomServiceImpl implements TroRoomService {
         return 0;
     }
 
-    @Override
-    public int deleteByPrimaryKey(String roomintroduce) {
-        return 0;
-    }
+
 
     @Override
     public int insert(TroRoom record) {
@@ -84,5 +82,15 @@ public class TroRoomServiceImpl implements TroRoomService {
     @Override
     public int selectCount() {
         return troRoomMapper.selectCount();
+    }
+
+    @Override
+    public List<TroRoom> selectRoomPage(Map map) {
+        return this.troRoomMapper.selectRoomPage(map);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(String roomintroduce) {
+        return this.troRoomMapper.deleteByPrimaryKey(roomintroduce);
     }
 }

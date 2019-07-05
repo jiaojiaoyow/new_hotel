@@ -3,6 +3,7 @@ package com.example.hotel.dao;
 import com.example.hotel.model.Room;
 import com.example.hotel.model.RoomExample;
 import java.util.List;
+import java.util.Map;
 
 import com.example.hotel.model.RoomOrder;
 import org.apache.ibatis.annotations.Param;
@@ -38,6 +39,8 @@ public interface RoomMapper {
     int updateByPrimaryKeyForReduce(@Param("rname") String rname,@Param("roomnum") int roomnum);
 
     int selectCount();
+
+
 
 
 }

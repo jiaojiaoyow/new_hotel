@@ -3,6 +3,8 @@ package com.example.hotel.dao;
 import com.example.hotel.model.Admin;
 import com.example.hotel.model.AdminExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -36,4 +38,10 @@ public interface AdminMapper {
     public void saveOrUpdate(Admin admin);
 
     List<Admin> selectAll();
+
+    int selectCount();
+
+    List<Admin> selectPage(Map map);
+
+    List<Admin> selectByUnameLike(String uname);
 }

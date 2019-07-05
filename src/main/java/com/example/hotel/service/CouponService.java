@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CouponService {
 
@@ -40,5 +41,9 @@ public interface CouponService {
     List<Coupon> SelectAll();
 
     List<Coupon> selectByCname(String cname);
+
+    int selectCount();
+
+    List<Coupon> selectPage(Map map);
 }
 

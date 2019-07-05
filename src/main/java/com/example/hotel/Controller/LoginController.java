@@ -30,7 +30,7 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("/api/login")
-    public ResultDTO login(@RequestBody LoginDTO loginDTO){
+    public ResultDTO login( LoginDTO loginDTO){
         ResultDTO resultDTO=new ResultDTO();
         try{
             //HttpSession session=

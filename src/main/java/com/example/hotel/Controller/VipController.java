@@ -25,7 +25,7 @@ public class VipController {
     private VipService vipService;
 
     @RequestMapping("/api/getVip")
-    public ResultDTO getVip(@RequestBody VipDTO vipDTO){
+    public ResultDTO getVip(VipDTO vipDTO){
         ResultDTO resultDTO=new ResultDTO();
         try {
             if(vipDTO.getPhone()==null){

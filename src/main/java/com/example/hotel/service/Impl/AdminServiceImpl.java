@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("AdminService")
 public class AdminServiceImpl implements AdminService {
@@ -70,6 +71,21 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin selectByUname(String uname) {
         return this.adminMapper.selectByUname(uname);
+    }
+
+    @Override
+    public int selectCount() {
+        return this.adminMapper.selectCount();
+    }
+
+    @Override
+    public List<Admin> selectPage(Map map) {
+        return this.adminMapper.selectPage(map);
+    }
+
+    @Override
+    public List<Admin> selectByUnameLike(String uname) {
+        return this.adminMapper.selectByUnameLike(uname);
     }
 
     @Override

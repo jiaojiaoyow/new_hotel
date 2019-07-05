@@ -1,5 +1,6 @@
 package com.example.hotel.Controller;
 
+import com.example.hotel.DTO.ObjectDTO;
 import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.DTO.RoomDTO;
 import com.example.hotel.model.Room;
@@ -69,7 +70,7 @@ public class RoomController {
     }
 
     @RequestMapping("/api/back/disposeorder")  //客人到店后，处理订单
-    public ResultDTO disposeOrder( @RequestBody  RoomOrder roomOrder) {
+    public ResultDTO disposeOrder(   RoomOrder roomOrder) {
         ResultDTO resultDTO = new ResultDTO();
         try {
             if (roomOrder != null && roomOrder.getOrderstatus() == 2) {
@@ -109,17 +110,23 @@ public class RoomController {
 
 
     @RequestMapping("/api/getallroom")        //返回所有房间信息
-    public ResultDTO getAllRoom() {
+    public ResultDTO getAllRoom(int currPage,int pageSize) {
 
         ResultDTO resultDTO = new ResultDTO();
 
         try {
+            int total=roomService.selectCount();
+            //创建当前页的分页对象，计算四个参数
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
+            /*-------------------向数据库中查询当前页的数据-------------------*/
+            Map<String, Integer> parameter = new HashMap<>(2);
+            parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
+            parameter.put("num", peoplePageBean.getPageSize());
             List<TroRoom> troRooms = new ArrayList<>();
-            troRooms = troRoomService.selectAllTroRoom();
+            troRooms = troRoomService.selectRoomPage(parameter);
             if (troRooms != null) {
-
-
-                return resultDTO.ok(troRooms);
+                ObjectDTO objectDTO=new ObjectDTO(total,troRooms);
+                return resultDTO.ok(objectDTO);
             }
             return resultDTO.fail();
         } catch (Exception e) {
@@ -132,9 +139,12 @@ public class RoomController {
 
 
     @RequestMapping("/api/back/addroom") //增加房间类型
-    public ResultDTO insertRoom( @RequestBody RoomDTO roomDTO) {
+    public ResultDTO insertRoom(  RoomDTO roomDTO) {
         ResultDTO resultDTO = new ResultDTO();
         try {
+            if(roomDTO.getRoomname()==null){
+                return resultDTO.nothing();
+            }
             if (roomDTO != null && roomDTO.getRoomname() != null) {
                 TroRoom troRoom = new TroRoom();
                 troRoom.setRoomintroduce(roomDTO.getRoomname());
@@ -156,14 +166,16 @@ public class RoomController {
 
             }
             return resultDTO.fail("接收数据为空");
-        } catch (Exception e) {
+        } catch (org.springframework.dao.DuplicateKeyException e){
+            return resultDTO.interFail("房间");
+        }catch (Exception e) {
             return resultDTO.unkonwFail(e.toString());
         }
 
     }
 
     @RequestMapping("api/back/updateroom") //更新
-    public ResultDTO updateRoom( @RequestBody  RoomDTO roomDTO) {
+    public ResultDTO updateRoom(   RoomDTO roomDTO) {
         ResultDTO resultDTO = new ResultDTO();
         try {
             if (roomDTO != null && roomDTO.getRoomname() != null) {
