@@ -103,6 +103,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<Admin> selectAll() {
+        return this.adminMapper.selectAll();
+    }
+
+    @Override
     public int deleteByPrimaryKey(Integer adminId) {
         return this.adminMapper.deleteByPrimaryKey(adminId);
     }

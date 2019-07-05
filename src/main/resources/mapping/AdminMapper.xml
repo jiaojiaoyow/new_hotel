@@ -197,5 +197,9 @@
     SELECT * from admin where uname=#{uname}
   </select>
 
+  <select id="selectAll" resultType="com.example.hotel.model.Admin">
+    select * from admin
+  </select>
+
 
 </mapper>

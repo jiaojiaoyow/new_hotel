@@ -33,8 +33,12 @@ public interface AdminService {
 
     int updateByPrimaryKey(Admin record);
 
-    Admin selectByUname(String uname);
+
 
     //自己加的
     public int saveOrUpdate(Admin admin);
+
+    List<Admin> selectAll();
+
+    Admin selectByUname(String uname);
 }

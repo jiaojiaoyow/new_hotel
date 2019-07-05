@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class AdminLoginController {
@@ -33,6 +34,21 @@ public class AdminLoginController {
                 return resultDTO.fail("密码错误");
             }
             return resultDTO.ok(null);
+        }catch (Exception e){
+            return resultDTO.unkonwFail(e.toString());
+        }
+    }
+
+    @RequestMapping("/api/back/selAdmin")
+    public ResultDTO selAdmin(){
+        ResultDTO resultDTO=new ResultDTO();
+        try {
+
+            List<Admin> admin1=adminService.selectAll();
+            if(admin1.size()==0){
+                return resultDTO.fail();
+            }
+            return resultDTO.ok(admin1);
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
         }

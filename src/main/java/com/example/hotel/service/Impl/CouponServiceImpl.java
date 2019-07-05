@@ -73,6 +73,11 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
+    public List<Coupon> selectByCname(String cname) {
+        return this.couponMapper.selectByCname(cname);
+    }
+
+    @Override
     public int insertSelective(Coupon record) {
         return this.couponMapper.insertSelective(record);
     }

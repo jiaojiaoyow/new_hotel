@@ -35,6 +35,10 @@ public interface CouponService {
 
     int updateByPrimaryKey(Coupon record);
 
+    //自己加的
+
     List<Coupon> SelectAll();
+
+    List<Coupon> selectByCname(String cname);
 }
 

@@ -110,6 +110,8 @@ public class CouponController {
             if(coupon.getCname()==null){
                 return resultDTO.nothing();
             }
+            coupon.setSendStartDate(DateUtil.change_form(coupon.getSendStartDate()));
+            coupon.setSendEndDate(DateUtil.change_form(coupon.getSendEndDate()));
             int flag=couponService.insertSelective(coupon);
             if(flag==0){
                 return resultDTO.fail("新建优惠卷失败");
@@ -130,11 +132,30 @@ public class CouponController {
             if(coupon.getCid()==null){
                 return resultDTO.nothing();
             }
+            coupon.setSendStartDate(DateUtil.change_form(coupon.getSendStartDate()));
+            coupon.setSendEndDate(DateUtil.change_form(coupon.getSendEndDate()));
             int flag=couponService.updateByPrimaryKeySelective(coupon);
             if(flag==0){
                 return resultDTO.fail("修改优惠卷失败");
             }
             return resultDTO.ok(null);
+
+        }catch (Exception e){
+            return resultDTO.unkonwFail(e.toString());
+        }
+    }
+
+    //查找优惠卷
+    @RequestMapping("/api/back/findCoupon")
+    public ResultDTO findCoupon(String cname){
+        ResultDTO resultDTO=new ResultDTO();
+        try {
+            List<Coupon> mess=couponService.selectByCname(cname);
+            //如果结束时间大于系统给的时间，这在数据库中删除数据，并且不返回。
+            if(mess.size()==0){
+                return resultDTO.fail();
+            }
+            return resultDTO.ok(mess);
 
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());

@@ -34,4 +34,6 @@ public interface AdminMapper {
     Admin selectByUname(String uname);
 
     public void saveOrUpdate(Admin admin);
+
+    List<Admin> selectAll();
 }

@@ -32,8 +32,10 @@ public class DateUtil {
         return df.parse(date);
     }
 
-
-
+    static public String change_form(String date) throws ParseException{
+        Date date1=df.parse(date.split("T")[0]);
+        return df.format(date1);
+    }
 
     static public String addtime(Date date, int add){
         Calendar calendar = Calendar.getInstance();

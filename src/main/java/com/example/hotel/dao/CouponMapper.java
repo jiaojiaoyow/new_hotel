@@ -34,4 +34,6 @@ public interface CouponMapper {
 //    自己增加的
     List<Coupon> SelectAll();
 
+    List<Coupon> selectByCname(String cname);
+
 }

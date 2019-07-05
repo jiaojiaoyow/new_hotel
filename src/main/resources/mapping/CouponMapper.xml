@@ -245,4 +245,8 @@
     select * from coupon
   </select>
 
+  <select id="selectByCname" parameterType="java.lang.String" resultType="com.example.hotel.model.Coupon">
+    select * from coupon where cname LIKE "%"#{cname}"%"
+  </select>
+
 </mapper>

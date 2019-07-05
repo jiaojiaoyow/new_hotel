@@ -127,8 +127,12 @@ public class RoomController {
         }
     }
 
+
+
+
+
     @RequestMapping("/api/back/addroom") //增加房间类型
-    public ResultDTO insertRoom(@RequestBody  RoomDTO roomDTO) {
+    public ResultDTO insertRoom( @RequestBody RoomDTO roomDTO) {
         ResultDTO resultDTO = new ResultDTO();
         try {
             if (roomDTO != null && roomDTO.getRoomname() != null) {
@@ -159,7 +163,6 @@ public class RoomController {
     }
 
     @RequestMapping("api/back/updateroom") //更新
-
     public ResultDTO updateRoom( @RequestBody  RoomDTO roomDTO) {
         ResultDTO resultDTO = new ResultDTO();
         try {
@@ -194,12 +197,12 @@ public class RoomController {
 
 
     @RequestMapping("/api/back/deleteroom")  //删除房间
-    public ResultDTO deleteRoom(String roomname) {
+    public ResultDTO deleteRoom(String roomintroduce) {
         ResultDTO resultDTO = new ResultDTO();
         try {
-            if(roomname !=null && roomname !="") {
-                roomService.deleteByPrimaryKey(roomname);
-                troRoomService.deleteByPrimaryKey(roomname);
+            if(roomintroduce !=null && roomintroduce !="") {
+                roomService.deleteByPrimaryKey(roomintroduce);
+                troRoomService.deleteByPrimaryKey(roomintroduce);
                 return resultDTO.ok(null);
             }
             return  resultDTO.fail("接收数据为空");
