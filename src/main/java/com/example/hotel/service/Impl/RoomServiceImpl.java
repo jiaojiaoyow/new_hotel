@@ -74,7 +74,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public int updateByPrimaryKey(Room record) {
-        return 0;
+        return roomMapper.updateByPrimaryKey(record);
     }
 
     @Override

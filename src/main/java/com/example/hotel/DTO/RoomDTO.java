@@ -2,7 +2,7 @@ package com.example.hotel.DTO;
 
 public class RoomDTO {
 
-    private String roomname;
+    private String roomintroduce;
 
     private Integer roomnumber;
 
@@ -20,12 +20,12 @@ public class RoomDTO {
 
     private Double roomprice;
 
-    public String getRoomname() {
-        return roomname;
+    public String getRoomintroduce() {
+        return roomintroduce;
     }
 
-    public void setRoomname(String roomname) {
-        this.roomname = roomname;
+    public void setRoomintroduce(String roomintroduce) {
+        this.roomintroduce = roomintroduce;
     }
 
     public Integer getRoomnumber() {
