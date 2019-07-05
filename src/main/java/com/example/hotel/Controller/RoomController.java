@@ -142,12 +142,12 @@ public class RoomController {
     public ResultDTO insertRoom(  RoomDTO roomDTO) {
         ResultDTO resultDTO = new ResultDTO();
         try {
-            if(roomDTO.getRoomname()==null){
+            if(roomDTO.getRoomintroduce()==null){
                 return resultDTO.nothing();
             }
-            if (roomDTO != null && roomDTO.getRoomname() != null) {
+            if (roomDTO != null && roomDTO.getRoomintroduce() != null) {
                 TroRoom troRoom = new TroRoom();
-                troRoom.setRoomintroduce(roomDTO.getRoomname());
+                troRoom.setRoomintroduce(roomDTO.getRoomintroduce());
                 troRoom.setRoomarea(roomDTO.getRoomarea());
                 troRoom.setRoombed(roomDTO.getRoombed());
                 troRoom.setRoombreakfast(roomDTO.getRoombreakfast());
@@ -155,13 +155,15 @@ public class RoomController {
                 troRoom.setRoomnum(roomDTO.getRoomnum());
                 troRoom.setRoomwifi(roomDTO.getRoomwifi());
                 troRoom.setRoomprice(roomDTO.getRoomprice());
-                troRoomService.insertSelective(troRoom);   //插入
+               int x= troRoomService.insertSelective(troRoom);   //插入
 
                 Room room = new Room();
-                room.setRoomname(roomDTO.getRoomname());
+                room.setRoomname(roomDTO.getRoomintroduce());
                 room.setRoomnumber(roomDTO.getRoomnumber());
                 room.setRoomprice(roomDTO.getRoomprice());
-                roomService.insertSelective(room);   //插入
+                int y=roomService.insertSelective(room);   //插入
+                if(x==0 && y==0)
+                    return resultDTO.fail("插入失败");
                 return resultDTO.ok(null);
 
             }
@@ -178,9 +180,9 @@ public class RoomController {
     public ResultDTO updateRoom(   RoomDTO roomDTO) {
         ResultDTO resultDTO = new ResultDTO();
         try {
-            if (roomDTO != null && roomDTO.getRoomname() != null) {
+            if (roomDTO != null && roomDTO.getRoomintroduce() != null) {
                 TroRoom troRoom = new TroRoom();
-                troRoom.setRoomintroduce(roomDTO.getRoomname());
+                troRoom.setRoomintroduce(roomDTO.getRoomintroduce());
                 troRoom.setRoomarea(roomDTO.getRoomarea());
                 troRoom.setRoombed(roomDTO.getRoombed());
                 troRoom.setRoombreakfast(roomDTO.getRoombreakfast());
@@ -188,13 +190,15 @@ public class RoomController {
                 troRoom.setRoomnum(roomDTO.getRoomnum());
                 troRoom.setRoomwifi(roomDTO.getRoomwifi());
                 troRoom.setRoomprice(roomDTO.getRoomprice());
-                troRoomService.updateByPrimaryKeySelective(troRoom);   //更新
+               int x= troRoomService.updateByPrimaryKeySelective(troRoom);   //更新
 
                 Room room = new Room();
-                room.setRoomname(roomDTO.getRoomname());
+                room.setRoomname(roomDTO.getRoomintroduce());
                 room.setRoomnumber(roomDTO.getRoomnumber());
                 room.setRoomprice(roomDTO.getRoomprice());
-                roomService.updateByPrimaryKeySelective(room);   //更新
+               int y= roomService.updateByPrimaryKeySelective(room);   //更新
+                if(x==0 && y==0)
+                    return resultDTO.fail("更新失败");
                 return resultDTO.ok(null);
 
             }

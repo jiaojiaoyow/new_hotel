@@ -51,7 +51,7 @@ public class TroRoomServiceImpl implements TroRoomService {
 
     @Override
     public TroRoom selectByPrimaryKey(String roomintroduce) {
-        return null;
+        return troRoomMapper.selectByPrimaryKey(roomintroduce);
     }
 
     @Override
@@ -66,12 +66,12 @@ public class TroRoomServiceImpl implements TroRoomService {
 
     @Override
     public int updateByPrimaryKeySelective(TroRoom record) {
-        return 0;
+        return troRoomMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(TroRoom record) {
-        return 0;
+        return troRoomMapper.updateByPrimaryKey(record);
     }
 
     @Override
