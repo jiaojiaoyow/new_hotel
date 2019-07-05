@@ -1,5 +1,6 @@
 package com.example.hotel.Controller;
 
+import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.model.RoomOrder;
 import com.example.hotel.service.RoomOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,21 @@ public class Mycontroller {
     @Autowired
     private RoomOrderService roomOrderService;
 
+
     @RequestMapping("/api/getorder")
-    public List<RoomOrder> getOrder( String openid){
+    public ResultDTO getOrder(String openid) {  //返回的是已经成功支付的订单
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            if(openid !="" && !openid.equals("")) {
+                List<RoomOrder> roomOrder = new ArrayList<RoomOrder>();
+                roomOrder = roomOrderService.selectByUserid(openid);
+                System.out.println("返回所有已支付订单成功。");
 
-        List<RoomOrder> roomOrder=new ArrayList<RoomOrder>();
-        roomOrder=roomOrderService.selectByUserid(openid); //返回的是已经成功的订单
-        System.out.println("返回所有已支付订单成功。");
-
-        return roomOrder;
+                return ResultDTO.ok(roomOrder);
+            }
+            return ResultDTO.fail("openid为空");
+        } catch (Exception e) {
+            return resultDTO.unkonwFail(e.toString());
+        }
     }
 }

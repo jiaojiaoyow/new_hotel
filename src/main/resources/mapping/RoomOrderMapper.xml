@@ -372,7 +372,7 @@
     <include refid="Base_Column_List" />
     from roomorder
     where uid = #{uid,jdbcType=VARCHAR}
-    and orderstatus = 2
+    and orderstatus = 2 or orderstatus = 4 order by orderid desc
 
   </select>
 
