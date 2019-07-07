@@ -41,9 +41,9 @@ public class ActivityController {
 
             List<Activity> activities =activityService.selectAll();
             if(activities.size()==0){
-                return resultDTO.fail("轮播图");
+                return resultDTO.fail();
             }
-            return resultDTO.ok(null);
+            return resultDTO.ok(activities);
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
         }

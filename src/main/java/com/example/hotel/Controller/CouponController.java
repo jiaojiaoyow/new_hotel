@@ -6,6 +6,7 @@ import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.DTO.TokenDTO;
 import com.example.hotel.model.Coupon;
 import com.example.hotel.model.GetCoupon;
+import com.example.hotel.model.GetCouponKey;
 import com.example.hotel.service.CouponService;
 import com.example.hotel.service.GetCouponService;
 import com.example.hotel.adapter.CouponUtil;
@@ -64,8 +65,9 @@ public class CouponController {
         ResultDTO resultDTO=new ResultDTO();
         try {
             Date nowtime=new Date();
-            List<Coupon> UserCoupon=new ArrayList();
-            List<GetCoupon> mess=getCouponService.selectByUid(uid);
+            List<Coupon> UserCoupon=new ArrayList<Coupon>();
+            List<GetCoupon> mess=new ArrayList<GetCoupon>();
+            mess=getCouponService.selectByUid(uid);
             for (GetCoupon temp:mess
             ) {
                 if(temp.getStatus()!=1&&DateUtil.change_Date(temp.getUseEndDate()).getTime()>nowtime.getTime()){//未使用和未过期
@@ -91,6 +93,13 @@ public class CouponController {
 
         ResultDTO resultDTO=new ResultDTO();
         try {
+            GetCouponKey key=new GetCouponKey();
+            key.setCid(getCoupon.getCid());
+            key.setUid(getCoupon.getUid());
+            GetCoupon gc=getCouponService.selectByPrimaryKey(key);
+            if(gc!=null)
+                return resultDTO.fail("您已经领取过该优惠券了哦");
+
             Date nowtime=new Date();
             //设置开始和结束时间
             getCoupon.setUseStartDate(DateUtil.change_str(nowtime));

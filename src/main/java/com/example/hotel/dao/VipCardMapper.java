@@ -3,6 +3,8 @@ package com.example.hotel.dao;
 import com.example.hotel.model.VipCard;
 import com.example.hotel.model.VipCardExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -30,4 +32,8 @@ public interface VipCardMapper {
     int updateByPrimaryKeySelective(VipCard record);
 
     int updateByPrimaryKey(VipCard record);
+
+    List<VipCard> selectAllCard(Map map);
+
+    int selectCount();
 }

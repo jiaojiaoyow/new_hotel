@@ -88,6 +88,8 @@
     from vipcard
     where vid = #{vid,jdbcType=VARCHAR}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from vipcard
     where vid = #{vid,jdbcType=VARCHAR}
@@ -207,4 +209,16 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <select id="selectAllCard"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vipcard
+
+  </select>
+
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from vipcard
+  </select>
+
 </mapper>

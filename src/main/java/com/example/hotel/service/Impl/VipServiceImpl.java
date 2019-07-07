@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("VipService")
 public class VipServiceImpl implements VipService {
@@ -28,14 +29,14 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public int deleteByPrimaryKey(String vid) {
-        return 0;
+        return vipCardMapper.deleteByPrimaryKey(vid);
     }
 
 
 
     @Override
     public int insert(VipCard record) {
-        return 0;
+        return vipCardMapper.insert(record);
     }
 
     @Override
@@ -62,12 +63,22 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public int updateByPrimaryKeySelective(VipCard record) {
-        return 0;
+        return vipCardMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(VipCard record) {
         return 0;
+    }
+
+    @Override
+    public List<VipCard> selectAllCard(Map map) {
+        return vipCardMapper.selectAllCard(map);
+    }
+
+    @Override
+    public int selectCount() {
+        return vipCardMapper.selectCount();
     }
 
 

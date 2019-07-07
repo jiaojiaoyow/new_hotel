@@ -45,7 +45,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateByPrimaryKeyForBalance(userid,rebalance);
     }
 
-
+    @Override
+    public User selectByVip(String vip) {
+        return userMapper.selectByVip(vip);
+    }
 
 
 }

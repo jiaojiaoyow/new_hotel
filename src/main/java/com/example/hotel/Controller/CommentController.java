@@ -52,7 +52,7 @@ public class CommentController {
         ResultDTO resultDTO=new ResultDTO();
         try{
             RoomOrder roomOrder=roomOrderService.selectByOrderid(orderid);
-            if(roomOrder.getCid()==null){
+            if(roomOrder.getOrderid()==null){
                 return resultDTO.fail();
             }
         //订单已使用并且还没有写评论的时候
