@@ -33,4 +33,6 @@ public interface UserMapper {
 
 
     public int updateByPrimaryKeyForBalance(String userid, Double rebalance);
+
+    User  selectByVip(String vip);
 }

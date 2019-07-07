@@ -308,4 +308,11 @@
     set ubalance = ubalance - #{rebalance,jdbcType=DOUBLE}
     where uid = #{userid,jdbcType=CHAR}
   </update>
+
+  <select id="selectByVip" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where vip = #{vid,jdbcType=CHAR}
+  </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.example.hotel.Controller;
 
+import com.example.hotel.DTO.ObjectDTO;
 import com.example.hotel.DTO.ResultDTO;
 import com.example.hotel.DTO.VipDTO;
 import com.example.hotel.model.User;
@@ -7,13 +8,14 @@ import com.example.hotel.model.VipCard;
 import com.example.hotel.service.UserService;
 import com.example.hotel.service.VipService;
 import com.example.hotel.util.DateUtil;
+import com.example.hotel.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import java.util.*;
 
 @RestController
 public class VipController {
@@ -94,5 +96,51 @@ public class VipController {
         }catch (Exception e){
             return resultDTO.unkonwFail(e.toString());
         }
+    }
+@RequestMapping("/api/back/getAllVip")
+    public ResultDTO getAllVip(int currPage,int pageSize) {   //获得所有会员信息
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+            int total=vipService.selectCount();
+            //创建当前页的分页对象，计算四个参数
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
+            /*-------------------向数据库中查询当前页的数据-------------------*/
+            Map<String, Integer> parameter = new HashMap<>(2);
+            parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
+            parameter.put("num", peoplePageBean.getPageSize());
+            List<VipCard> vipCards=new ArrayList<VipCard>();
+            vipCards=vipService.selectAllCard(parameter);
+
+            ObjectDTO objectDTO=new ObjectDTO(total,vipCards);
+            return resultDTO.ok(objectDTO);  //有总数返回
+        } catch (Exception e) {
+            return resultDTO.unkonwFail(e.toString());
+        }
+    }
+
+    @RequestMapping("/api/back/deleteOneVip")
+    public ResultDTO deleteOneVip(String vid){
+        ResultDTO resultDTO = new ResultDTO();
+        try {
+               User user= userService.selectByVip(vid);
+               if(user!=null){
+                   //修改用户
+                   User u=new User();
+                   u.setUid(user.getUid());
+                   u.setStatus(0);
+                   u.setVip("0000");
+                   userService.saveOrUpdate(u);
+                   int x=vipService.deleteByPrimaryKey(vid);
+                   if(x==0){
+                       return resultDTO.fail("删除失败");
+                   }
+                   return  resultDTO.ok(null);
+               }
+               return  resultDTO.fail("该用户不是vip或传入数据为空");
+
+        } catch (Exception e) {
+            return resultDTO.unkonwFail(e.toString());
+        }
+
     }
 }

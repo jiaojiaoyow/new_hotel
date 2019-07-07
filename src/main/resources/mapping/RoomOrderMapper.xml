@@ -378,12 +378,11 @@
 
   <!--通过订单id查询当前订单-->
   <select id="selectByOrderid" parameterType="java.lang.String" resultMap="BaseResultMap">
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
+    select
+    <include refid="Base_Column_List" />
+    from roomorder
+    where orderid = #{orderid,jdbcType=VARCHAR} and orderstatus = 4
+
   </select>
 
   <!--通过用户id，订单起始时间，房间名确认id-->
