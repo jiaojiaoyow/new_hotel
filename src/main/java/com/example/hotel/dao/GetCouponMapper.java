@@ -1,5 +1,6 @@
 package com.example.hotel.dao;
 
+import com.example.hotel.model.Coupon;
 import com.example.hotel.model.GetCoupon;
 import com.example.hotel.model.GetCouponExample;
 import com.example.hotel.model.GetCouponKey;
