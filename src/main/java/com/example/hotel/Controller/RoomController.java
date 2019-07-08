@@ -54,16 +54,26 @@ public class RoomController {
     }
     */
     @RequestMapping("/api/back/getallpayorder")
-    public ResultDTO getAllPayOrder() {  //所有已成功付款待处理订单
+    public ResultDTO getAllPayOrder(int currPage, int pageSize) {  //所有已成功付款待处理订单
         ResultDTO resultDTO = new ResultDTO();
         try {
+
+            int total=roomOrderService.selectPayCount();
+            if((currPage-1)*pageSize>total){
+                return resultDTO.ok(null);
+            }
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize, total);
+            Map<String, Integer> parameter = new HashMap<>(2);
+            parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
+            parameter.put("num", peoplePageBean.getPageSize());
             List<RoomOrder> data = new ArrayList<RoomOrder>();
 
-            data = roomOrderService.selectAllPayOrder();
+            data = roomOrderService.selectAllPayOrder(parameter);
             if (data == null) {
                 return resultDTO.fail();
             }
-            return resultDTO.ok(data);
+            ObjectDTO object=new ObjectDTO(total,data);
+            return resultDTO.ok(object);
         } catch (Exception e) {
             return resultDTO.unkonwFail(e.toString());
         }

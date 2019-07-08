@@ -398,11 +398,11 @@
   </select>
 
   <!--所有已成功付款待处理订单-->
-  <select id="selectAllPayOrder"  resultMap="BaseResultMap">
+  <select id="selectAllPayOrder"  parameterType="java.util.Map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from roomorder
-    where  orderstatus= 2
+    where  orderstatus= 2 limit #{begin},#{num}
   </select>
 
   <!--所有订单，包括失效完成-->
@@ -424,6 +424,12 @@
   <select id="selectCount" resultType="java.lang.Integer">
     select count(*) from roomorder
     where  orderstatus = 4
+  </select>
+
+  <!--查询已支付订单数量-->
+  <select id="selectPayCount" resultType="java.lang.Integer">
+    select count(*) from roomorder
+    where  orderstatus = 2
   </select>
 
   <select id="selectPage" resultType="com.example.hotel.model.RoomOrder" parameterType="java.util.Map">
