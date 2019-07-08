@@ -38,6 +38,9 @@ public class CouponController {
         ResultDTO resultDTO=new ResultDTO();
         try {
             int total=couponService.selectCount();
+            if((currPage-1)*pageSize>total){
+                return resultDTO.ok(null);
+            }
             //创建当前页的分页对象，计算四个参数
             PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
             /*-------------------向数据库中查询当前页的数据-------------------*/

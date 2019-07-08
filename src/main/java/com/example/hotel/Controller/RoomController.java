@@ -93,16 +93,19 @@ public class RoomController {
         ResultDTO resultDTO = new ResultDTO();
 
         try {
-            PageUtil peoplePageBean = new PageUtil(currPage, pageSize, roomOrderService.selectCount());
+            int total=roomOrderService.selectCount();
+            if((currPage-1)*pageSize>total){
+                return resultDTO.ok(null);
+            }
+            PageUtil peoplePageBean = new PageUtil(currPage, pageSize, total);
             Map<String, Integer> parameter = new HashMap<>(2);
             parameter.put("begin", peoplePageBean.getCurrPage() * peoplePageBean.getPageSize() - peoplePageBean.getPageSize());
             parameter.put("num", peoplePageBean.getPageSize());
             List<RoomOrder> data = new ArrayList<RoomOrder>();
             data = roomOrderService.selectAllCompleteOrder(parameter);
-            if (data == null) {
-                return resultDTO.fail();
-            }
-            return resultDTO.ok(data);
+
+            ObjectDTO object=new ObjectDTO(total,data);
+            return resultDTO.ok(object);
         } catch (Exception e) {
             return resultDTO.unkonwFail(e.toString());
         }
@@ -116,6 +119,9 @@ public class RoomController {
 
         try {
             int total=roomService.selectCount();
+            if((currPage-1)*pageSize>total){
+                return resultDTO.ok(null);
+            }
             //创建当前页的分页对象，计算四个参数
             PageUtil peoplePageBean = new PageUtil(currPage, pageSize,total);
             /*-------------------向数据库中查询当前页的数据-------------------*/
