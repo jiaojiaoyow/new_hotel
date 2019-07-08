@@ -110,13 +110,18 @@ public class RoomOrderServiceImpl implements RoomOrderService {
     }
 
     @Override
-    public List<RoomOrder> selectAllPayOrder() {
-        return roomOrderMapper.selectAllPayOrder();
+    public List<RoomOrder> selectAllPayOrder(Map map) {
+        return roomOrderMapper.selectAllPayOrder(map);
     }
 
     @Override
     public int selectCount() {
         return roomOrderMapper.selectCount();
+    }
+
+    @Override
+    public int selectPayCount() {
+        return roomOrderMapper.selectPayCount();
     }
 
 

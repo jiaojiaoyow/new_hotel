@@ -52,9 +52,10 @@ public interface RoomOrderService {
 
     List<RoomOrder> selectAllOrder(Map map);
 
-    List<RoomOrder> selectAllPayOrder();
+    List<RoomOrder> selectAllPayOrder(Map map);
 
     int selectCount();
 
+    int selectPayCount();
 
 }
