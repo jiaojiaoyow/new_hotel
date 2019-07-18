@@ -3361,7 +3361,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__api_api__["a" /* getAllCompleteOrder */])(para).then(res => {
         console.log("getAllCompleteOrder ==> ", res);
         this.total = res.data.data.total;
-        this.allCompleteOrder = res.data.data;
+        this.allCompleteOrder = res.data.data.data;
         this.listLoading = false;
         //NProgress.done();
       });
@@ -3746,7 +3746,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__api_api__["b" /* getAllPayOrder */])(para).then(res => {
         console.log("getAllPayOrder ==> ", res);
         this.total = res.data.data.total;
-        this.allPayOrder = res.data.data;
+        this.allPayOrder = res.data.data.data;
         this.listLoading = false;
         //NProgress.done();
       });
@@ -7628,4 +7628,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 /***/ })
 
 },[270]);
-//# sourceMappingURL=app.b4994c628aac20fb3e59.js.map
+//# sourceMappingURL=app.2fdc846425162a9eb96c.js.map
