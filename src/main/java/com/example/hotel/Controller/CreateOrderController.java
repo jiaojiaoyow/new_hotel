@@ -66,7 +66,7 @@ public class CreateOrderController {
 
     //创建订单
     @RequestMapping("/api/createorder")
-    public cOrderDTO createOrder(RoomOrder roomOrder){
+    public cOrderDTO createOrder(RoomOrder roomOrder,HttpServletRequest request){
 
         try {
             System.out.println("roomname: " + roomOrder.getUname());
@@ -119,7 +119,7 @@ public class CreateOrderController {
                     rm.setRoomname(roomname);
                     rm.setUid(uid);
                     String orderid = roomOrderService.selectByRDU(rm);//订单id
-
+                    JSONObject json=wxPay(uid,"100"+change_str2(date),request);//调用微信支付
 
                     cOrderDTO cd = new cOrderDTO(uid, orderid, 1, 0.0);
 
@@ -204,7 +204,7 @@ public class CreateOrderController {
     }
 
 
-    public static JSONObject wxPay(String openid,HttpServletRequest request){
+    public static JSONObject wxPay(String openid,String orderid,HttpServletRequest request){
         JSONObject json = new JSONObject();
         try{
             //生成的随机字符串
@@ -213,7 +213,7 @@ public class CreateOrderController {
             String body = new String(WXConst.title.getBytes("ISO-8859-1"),"UTF-8");
             //获取本机的ip地址
             String spbill_create_ip = Util.getIpAddr(request);
-            String orderNo = DateToString()+"-001";
+            String orderNo = orderid;
             String money = "1";//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败
 
             Map<String, String> packageParams = new HashMap<String, String>();
